@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Block : MonoBehaviour {
 
-    public enum State { Preview, Falling, Still };
-    public State currentState = State.Preview;
+    public enum State { Inactive, Falling, Still };
+    public State currentState = State.Inactive;
     public event System.Action IsStill;
 
     static readonly float moveInterval = .8f;
@@ -54,13 +54,10 @@ public class Block : MonoBehaviour {
                 transform.position += Vector3.down;
             } else {
                 // the block is on top of another one or is on the floor, it's dead
-                SetAsStillAndRegisterToGrid();
+                SetAsStill();
+                gridManager.Register(this);
             }
         }
-    }
-
-    public void SetAsFalling() {
-        currentState = State.Falling;
     }
 
     void HandleStrafing() {
@@ -107,12 +104,11 @@ public class Block : MonoBehaviour {
         return true;
     }
 
-    void SetAsStillAndRegisterToGrid() {
+    public void SetAsStill() {
         currentState = State.Still;
         if (IsStill != null) {
             IsStill();
         }
-        gridManager.Register(this);
     }
 
     public void SetTransparency(float transparency) {

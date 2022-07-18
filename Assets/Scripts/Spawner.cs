@@ -7,19 +7,20 @@ public class Spawner : MonoBehaviour {
     [SerializeField]
     List<Block> blockPrefabs;
 
-    Block currentBlock;
+    public Block currentBlock;
     Block previewBlock;
 
     [SerializeField]
     bool withGhost;
-    Block ghost;
     float ghostTransparency = .3f;
+    Block ghost;
 
     bool canSpawn;
-    Vector3 defaultBlockPosition = new Vector3(5, 18, 0);
-        
+    Vector3 defaultBlockPosition;
+
     void Start() {
         canSpawn = true;
+        defaultBlockPosition = new Vector3(5, 18, 0);
     }
 
     void Update() {
@@ -43,13 +44,17 @@ public class Spawner : MonoBehaviour {
         return Instantiate(block, transform.position, Quaternion.identity) as Block;
     }
 
-    void Spawn() {
+    public void Spawn() {
         canSpawn = false;
-        previewBlock = SpawnRandomBlockInPreview();
-        if (currentBlock == null) {
-            currentBlock = previewBlock;
+        if (previewBlock == null) {
             previewBlock = SpawnRandomBlockInPreview();
         }
+
+        if (currentBlock == null) {
+            TriggerBlock(previewBlock);
+            previewBlock = SpawnRandomBlockInPreview();
+        }
+
         if (withGhost) {
             if (ghost != null) {
                 Destroy(ghost.gameObject);
@@ -57,16 +62,21 @@ public class Spawner : MonoBehaviour {
             ghost = InstantiateBlock(currentBlock);
             ghost.SetTransparency(ghostTransparency);
         }
+
+    }
+
+    public void TriggerBlock(Block block) {
+        currentBlock = block;
         currentBlock.transform.position = defaultBlockPosition;
-        currentBlock.SetAsFalling();
+        currentBlock.currentState = Block.State.Falling;
         currentBlock.IsStill += MarkAsReadyToSpawn;
     }
 
-    void MarkAsReadyToSpawn() {
+    public void MarkAsReadyToSpawn() {
         if (ghost != null) {
             Destroy(ghost.gameObject);
         }
-        currentBlock = previewBlock;
+        currentBlock = null;
         canSpawn = true;
     }
 }
