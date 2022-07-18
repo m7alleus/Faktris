@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8594709879828795286}
   - component: {fileID: -999028554016866123}
   m_Layer: 0
-  m_Name: Lili-R
+  m_Name: Lili
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

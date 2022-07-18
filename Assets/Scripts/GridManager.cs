@@ -13,10 +13,6 @@ public class GridManager : MonoBehaviour {
         grid = new Transform[width, height];
     }
 
-    void Update() {
-
-    }
-
     public void Register(Block block) {
         foreach (Transform square in block.transform) {
             int x = Mathf.FloorToInt(square.transform.position.x);
@@ -28,7 +24,6 @@ public class GridManager : MonoBehaviour {
     }
 
     void CheckForCompleteRows() {
-        // TODO: rewrite this 
         bool completeRowFlag = true;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -41,6 +36,7 @@ public class GridManager : MonoBehaviour {
             }
             if (completeRowFlag) {
                 DeleteRow(y);
+                ShiftRowsDown(y + 1);
                 y--;
             } else {
                 completeRowFlag = true;
@@ -52,9 +48,12 @@ public class GridManager : MonoBehaviour {
         for (int x = 0; x < width; x++) {
             Transform squareTransform = grid[x, rowIndex];
             grid[x, rowIndex] = null;
+            Transform squareParent = squareTransform.parent;
             Destroy(squareTransform.gameObject);
+            if (squareParent.childCount == 0) {
+                Destroy(squareParent.gameObject);
+            }
         }
-        ShiftRowsDown(rowIndex + 1);
     }
 
     void ShiftRowsDown(int rowIndex) {
