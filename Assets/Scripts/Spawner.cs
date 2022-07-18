@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour {
     [SerializeField]
     bool withGhost;
     float ghostTransparency = .3f;
-    Block ghost;
+    public Block ghost;
 
     bool canSpawn;
     Vector3 defaultBlockPosition;
@@ -54,15 +54,6 @@ public class Spawner : MonoBehaviour {
             TriggerBlock(previewBlock);
             previewBlock = SpawnRandomBlockInPreview();
         }
-
-        if (withGhost) {
-            if (ghost != null) {
-                Destroy(ghost.gameObject);
-            }
-            ghost = InstantiateBlock(currentBlock);
-            ghost.SetTransparency(ghostTransparency);
-        }
-
     }
 
     public void TriggerBlock(Block block) {
@@ -70,6 +61,18 @@ public class Spawner : MonoBehaviour {
         currentBlock.transform.position = defaultBlockPosition;
         currentBlock.currentState = Block.State.Falling;
         currentBlock.IsStill += MarkAsReadyToSpawn;
+        CreateGhost();
+    }
+
+    void CreateGhost() {
+        if (withGhost) {
+            if (ghost != null) {
+                Destroy(ghost.gameObject);
+            }
+            ghost = InstantiateBlock(currentBlock);
+            ghost.currentState = Block.State.Inactive;
+            ghost.SetTransparency(ghostTransparency);
+        }
     }
 
     public void MarkAsReadyToSpawn() {

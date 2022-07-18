@@ -31,6 +31,10 @@ public class Block : MonoBehaviour {
         return transform.position + Vector3.down * rowIndexDistance;
     }
 
+    private void OnDrawGizmos() {
+        Gizmos.DrawWireCube(transform.position, Vector3.one / 2f);
+    }
+
     int FindClosestHittingRowIndex() {
         for (int i = 1; i <= Mathf.FloorToInt(transform.position.y); i++) {
             if (!ValidPosition(Vector3.down * i)) {

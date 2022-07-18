@@ -22,6 +22,9 @@ public class Holder : MonoBehaviour {
     void Hold() {
         canHold = false;
         Block spawnerCurrentBlock = spawner.currentBlock;
+        if (spawner.ghost != null) {
+            Destroy(spawner.ghost.gameObject);
+        }
         if (currentBlock == null) {
             PlaceBlockOnHold(spawnerCurrentBlock);
             spawner.MarkAsReadyToSpawn();
