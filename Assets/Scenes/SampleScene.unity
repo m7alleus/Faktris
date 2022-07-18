@@ -392,7 +392,8 @@ MonoBehaviour:
   - {fileID: 2713526926466699786, guid: 3766d78511598334689d7685eac6eb48, type: 3}
   - {fileID: 2713526926466699786, guid: fa4c2a690402de64ea2e6cf75dc3d5f6, type: 3}
   currentBlock: {fileID: 0}
-  withGhost: 0
+  withGhost: 1
+  ghost: {fileID: 0}
 --- !u!4 &1114898494
 Transform:
   m_ObjectHideFlags: 0

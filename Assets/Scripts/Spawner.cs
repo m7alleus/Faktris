@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour {
     [SerializeField]
     bool withGhost;
     float ghostTransparency = .3f;
-    public Block ghost;
+    public Block ghost; // should not be public
 
     bool canSpawn;
     Vector3 defaultBlockPosition;
@@ -76,9 +76,6 @@ public class Spawner : MonoBehaviour {
     }
 
     public void MarkAsReadyToSpawn() {
-        if (ghost != null) {
-            Destroy(ghost.gameObject);
-        }
         currentBlock = null;
         canSpawn = true;
     }
