@@ -7,6 +7,7 @@ public class Block : MonoBehaviour {
     public enum State { Inactive, Falling, Still };
     public State currentState = State.Inactive;
     public event System.Action IsStill;
+    public event System.Action IsInactive;
 
     static readonly float moveInterval = .8f;
     float moveTimer;
@@ -110,6 +111,13 @@ public class Block : MonoBehaviour {
 
     public void SetAsStill() {
         currentState = State.Still;
+        if (IsStill != null) {
+            IsStill();
+        }
+    }
+
+    public void SetAsInactive() {
+        currentState = State.Inactive;
         if (IsStill != null) {
             IsStill();
         }
