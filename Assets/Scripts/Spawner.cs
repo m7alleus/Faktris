@@ -16,11 +16,13 @@ public class Spawner : MonoBehaviour {
     public Block ghost; // should not be public
 
     bool canSpawn;
-    Vector3 defaultBlockPosition;
+    Vector3 defaultBlockPosition = new Vector3(5, 18, 0);
+
+    List<Block> spawningQueue = new List<Block>();
+    List<Block> spawningDequeue = new List<Block>();
 
     void Start() {
         canSpawn = true;
-        defaultBlockPosition = new Vector3(5, 18, 0);
     }
 
     void Update() {
@@ -35,8 +37,17 @@ public class Spawner : MonoBehaviour {
     }
 
     Block SpawnRandomBlockInPreview() {
-        int randomIndex = Random.Range(0, blockPrefabs.Count);
-        Block randomBlock = blockPrefabs[randomIndex];
+        if (spawningQueue.Count == 0) {
+            spawningQueue = new List<Block>(blockPrefabs);
+            spawningDequeue.Clear();
+        }
+
+        int randomIndex = Random.Range(0, spawningQueue.Count);
+        Block randomBlock = spawningQueue[randomIndex];
+
+        spawningQueue.Remove(randomBlock);
+        spawningDequeue.Add(randomBlock);
+
         return InstantiateBlock(randomBlock);
     }
 
