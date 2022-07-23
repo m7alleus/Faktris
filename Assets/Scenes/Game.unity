@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 1129978065}
   - component: {fileID: 1129978064}
   - component: {fileID: 1129978066}
+  - component: {fileID: 1129978067}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -818,6 +819,20 @@ MonoBehaviour:
   gameOverScreen: {fileID: 64571458}
   secondsSurvivedUI: {fileID: 464879378}
   gameOver: 0
+--- !u!114 &1129978067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129978063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7d59035db86e346b59319d610cdc20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsInterval: 10
+  currentMoveInterval: 0.8
 --- !u!1 &1153801084
 GameObject:
   m_ObjectHideFlags: 0

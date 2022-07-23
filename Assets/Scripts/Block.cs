@@ -9,17 +9,25 @@ public class Block : MonoBehaviour {
     public event System.Action IsStill;
     public event System.Action IsInactive;
 
-    static readonly float moveInterval = .8f;
+    static float moveInterval;
     float moveTimer;
 
     public int moves;
 
     GridManager gridManager;
+    DifficultyManager difficultyManager;
 
     void Awake() {
+        difficultyManager = FindObjectOfType<DifficultyManager>();
+        moveInterval = difficultyManager.currentMoveInterval;
+        difficultyManager.DifficultyIncreased += UpdateMoveInterval;
         moves = 0;
         moveTimer = moveInterval;
         gridManager = FindObjectOfType<GridManager>();
+    }
+
+    void UpdateMoveInterval() {
+        moveInterval = difficultyManager.currentMoveInterval;
     }
 
     void Update() {
@@ -33,10 +41,6 @@ public class Block : MonoBehaviour {
     public Vector3 FindClosestFloorPosition() {
         int rowIndexDistance = FindClosestHittingRowIndex();
         return transform.position + Vector3.down * rowIndexDistance;
-    }
-
-    private void OnDrawGizmos() {
-        Gizmos.DrawWireCube(transform.position, Vector3.one / 2f);
     }
 
     int FindClosestHittingRowIndex() {
