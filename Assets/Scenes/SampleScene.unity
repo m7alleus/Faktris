@@ -436,8 +436,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentBlock: {fileID: 0}
-  withGhost: 0
+  withGhost: 1
   ghost: {fileID: 0}
+  canHold: 0
+  canSpawn: 0
+  holdedBlock: {fileID: 0}
 --- !u!4 &1129978065
 Transform:
   m_ObjectHideFlags: 0
@@ -579,7 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6729a86bf163f484d9794d008187056b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canHold: 0
 --- !u!212 &2135596525
 SpriteRenderer:
   m_ObjectHideFlags: 0
