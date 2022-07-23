@@ -4,28 +4,25 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    [SerializeField]
     Block currentBlock;
     Block previewBlock;
 
     [SerializeField]
     bool withGhost;
     float ghostTransparency = .3f;
-    [SerializeField]
     Block ghost;
 
-    [SerializeField]
-    bool canHold;
-    [SerializeField]
-    bool canSpawn;
     Vector3 fallingBlockPosition = new Vector3(5, 18, 0);
 
     Spawner spawner;
+    bool canSpawn;
+
     Holder holder;
-    [SerializeField]
+    bool canHold;
     Block holdedBlock;
 
     void Start() {
+        FindObjectOfType<GridManager>().IsFull += StopGame;
         canHold = true;
         canSpawn = true;
         spawner = FindObjectOfType<Spawner>();
@@ -100,5 +97,9 @@ public class GameManager : MonoBehaviour {
 
     void MarkAsReadyToHold() {
         canHold = true;
+    }
+
+    void StopGame() {
+        this.enabled = false;
     }
 }

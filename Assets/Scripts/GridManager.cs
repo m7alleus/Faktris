@@ -9,6 +9,8 @@ public class GridManager : MonoBehaviour {
 
     public Transform[,] grid;
 
+    public event System.Action IsFull;
+
     void Start() {
         grid = new Transform[width, height];
     }
@@ -20,7 +22,16 @@ public class GridManager : MonoBehaviour {
 
             grid[x, y] = square.transform;
         }
+        CheckIfBlockMoves(block);
         CheckForCompleteRows();
+    }
+
+    void CheckIfBlockMoves(Block block) {
+        if(block.moves == 0) {
+            if (IsFull != null) {
+                IsFull();
+            }
+        }
     }
 
     void CheckForCompleteRows() {

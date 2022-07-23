@@ -12,9 +12,12 @@ public class Block : MonoBehaviour {
     static readonly float moveInterval = .8f;
     float moveTimer;
 
+    public int moves;
+
     GridManager gridManager;
 
     void Awake() {
+        moves = 0;
         moveTimer = moveInterval;
         gridManager = FindObjectOfType<GridManager>();
     }
@@ -57,6 +60,7 @@ public class Block : MonoBehaviour {
             moveTimer = moveInterval;
             if (ValidPosition(Vector3.down)) {
                 transform.position += Vector3.down;
+                moves++;
             } else {
                 // the block is on top of another one or is on the floor, it's dead
                 SetAsStill();
