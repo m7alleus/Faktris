@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void StopGame() {
+        TimerUI.text = "";
         this.enabled = false;
     }
 }
