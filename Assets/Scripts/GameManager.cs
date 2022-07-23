@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+
+    [SerializeField]
+    Text TimerUI;
 
     Block currentBlock;
     Block previewBlock;
@@ -29,7 +33,14 @@ public class GameManager : MonoBehaviour {
         holder = FindObjectOfType<Holder>();
     }
 
+    void UpdateTimer() {
+        float secondsSurvived = Mathf.Round(Time.timeSinceLevelLoad * 100.0f) / 100.0f;
+        TimerUI.text = secondsSurvived.ToString();
+    }
+
     void Update() {
+        UpdateTimer();
+
         if (canSpawn) {
             Spawn();
         }
