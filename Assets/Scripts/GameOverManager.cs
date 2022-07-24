@@ -21,7 +21,7 @@ public class GameOverManager : MonoBehaviour {
         if (gameOver) {
             if (Input.GetKeyDown(KeyCode.Space)) {
                 // Reload game
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(1);
             }
         }
     }
